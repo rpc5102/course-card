@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+  <head>
+    <meta charset="utf-8" />
+    <style>
+      body {
+        background: #fafafa;
+      }
+
+      #courses {
+        display: var(--haxtheme-courses-course-display, grid);
+        grid-template-columns: var(
+          --haxtheme-courses-course-grid-template-columns,
+          repeat(auto-fit, minmax(250px, 1fr))
+        );
+        grid-column-gap: var(--haxtheme-courses-course-grid-column-gap, 2vw);
+        grid-row-gap: var(--haxtheme-courses-course-grid-row-gap, 2vw);
+      }
+    </style>
+  </head>
+  <body>
+    <div id="demo"></div>
+    <script type="module">
+      import { html, render } from "lit-html";
+      import "../course-card.js";
+
+      const number = "Hello owc World!";
+      render(
+        html`
+          <div id="courses">
+            <course-card
+              url="https://google.com"
+              icon="chevron-right"
+              image="https://imaginary.courses.science.psu.edu/smartcrop?url=https://odl.science.psu.edu/files/course-banners/bisc001.png&width=450&height=300&quality=75&type=jpeg"
+              number="Astro130"
+              name="Life in the Universe"
+            >
+              some more light-dom
+            </course-card>
+            <course-card
+              url="https://google.com"
+              icon="chevron-right"
+              image="https://imaginary.courses.science.psu.edu/smartcrop?url=https://odl.science.psu.edu/files/course-banners/bisc001.png&width=450&height=300&quality=75&type=jpeg"
+              number="Astro130"
+              name="Life in the Universe"
+            >
+              some more light-dom
+            </course-card>
+            <course-card
+              url="https://google.com"
+              icon="chevron-right"
+              image="https://imaginary.courses.science.psu.edu/smartcrop?url=https://odl.science.psu.edu/files/course-banners/bisc001.png&width=450&height=300&quality=75&type=jpeg"
+              number="Astro130"
+              name="Life in the Universe"
+            >
+              some more light-dom
+            </course-card>
+            <course-card
+              url="https://google.com"
+              icon="chevron-right"
+              image="https://imaginary.courses.science.psu.edu/smartcrop?url=https://odl.science.psu.edu/files/course-banners/bisc001.png&width=450&height=300&quality=75&type=jpeg"
+              number="Astro130"
+              name="Life in the Universe"
+            >
+              some more light-dom
+            </course-card>
+          </div>
+        `,
+        document.querySelector("#demo")
+      );
+    </script>
+  </body>
+</html>
