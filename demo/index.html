@@ -16,6 +16,7 @@
         grid-column-gap: var(--haxtheme-courses-course-grid-column-gap, 2vw);
         grid-row-gap: var(--haxtheme-courses-course-grid-row-gap, 2vw);
       }
+
     </style>
   </head>
   <body>
@@ -35,14 +36,16 @@
               number="Astro130"
               name="Life in the Universe"
             >
-              some more light-dom
+              <h2 slot="title">Astro130</h2>
+              <h3 slot="subtitle">Life in the Universe</h3>
+              <img slot="icon" src="https://unsplash.it/300">
             </course-card>
+
             <course-card
               url="https://google.com"
-              icon="chevron-right"
               image="https://imaginary.courses.science.psu.edu/smartcrop?url=https://odl.science.psu.edu/files/course-banners/bisc001.png&width=450&height=300&quality=75&type=jpeg"
               number="Astro130"
-              name="Life in the Universe"
+              name="Life in the Universe" 
             >
               some more light-dom
             </course-card>
