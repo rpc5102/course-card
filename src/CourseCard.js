@@ -6,61 +6,76 @@ export class CourseCard extends LitElement {
   static get styles() {
     return css`
       :host {
+        font-size: 16px;
         display: block;
         border: solid 1px #dcdcdc;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
       }
       :host:hover {
         box-shadow: var(
-          --haxtheme-courses-course-card-hover-box-shadow,
+          --courses-course-card-hover-box-shadow,
           1px 1px 5px #dcdcdc
         );
       }
       a {
-        text-decoration: var(--haxtheme-course-card-a-text-decoration);
-        color: var(--haxtheme-course-card-a-color);
-        display: var(--haxtheme-course-card-a-display, block);
-        width: var(--haxtheme-course-card-a-width, 100%);
+        text-decoration: var(--course-card-a-text-decoration);
+        color: var(--course-card-a-color);
+        display: var(--course-card-a-display, flex);
+        width: var(--course-card-a-width, 100%);
+        flex-direction: column;
+        flex: 1 1 auto;
       }
-      #card_wrap {
-        display: var(--haxtheme-course-card-card-wrap-display, flex);
+      .card_wrap {
+        display: var(--course-card-card-wrap-display, flex);
         flex-direction: var(
-          --haxtheme-course-card-card-wrap-flex-direction,
+          --course-card-card-wrap-flex-direction,
           column
         );
-        align-items: var(--haxtheme-course-card-card-wrap-align-items, center);
+        align-items: var(--course-card-card-wrap-align-items, center);
+        height: 100%;
+      }
+      .card_body {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        flex: 1 1 auto;
+        padding: 1.25rem;
       }
       [part="course_number"], 
       [part="course_number"] slot::slotted(*){
-        font-size: var(--course-card--course-number--font-size, 28px);
+        font-size: var(--course-card--course-number--font-size, 1.75rem);
         text-transform: var(
-          --haxtheme-course-card-course-number-text-transform
+          --course-card--course-number--text-transform
+        );
+        text-align: var(
+          --course-card--course-number--text-align,
+          center
         );
         line-height: var(--course-card--course-number--line-height, 1.4);
-        margin: var(--course-card--course-number--margin, 0);
+        margin: var(--course-card--course-number--margin, 0.5rem 1rem 0);
         font-weight: var(--course-card--course-number--font-weight, 400);
       }
-      [part="course_name"],
-      [part="course_name"] slot::slotted(*) {
-        font-size: var(--haxtheme-course-card-course-name-font-size);
-        text-align: var(--haxtheme-course-card-course-name-text-align, center);
-        width: var(--haxtheme-course-card-course-name-width, 90%);
-        margin: var(--haxtheme-course-card-course-name-margin, 0 0 15px 0);
+      [part="course_title"],
+      [part="course_title"] slot::slotted(*) {
+        font-size: var(--course-card-course-name-font-size, 1.125rem);
+        text-align: var(--course-card-course-name-text-align, center);
+        margin: var(--course-card-course-name-margin, 0 1rem 1rem);
         line-height: 1.2;
       }
       [part="course_icon"] {
         background-color: var(
-          --haxtheme-course-card-course-icon-background-color, #fff
+          --course-card-course-icon-background-color, #fff
         );
         border-radius: var(
-          --haxtheme-course-card-course-icon-border-radius,
+          --course-card-course-icon-border-radius,
           50%
         );
-        position: var(--haxtheme-course-card-course-icon-position, relative);
-        bottom: var(--haxtheme-course-card-course-icon-position-bottom, 50px);
-        border: var(--haxtheme-course-card-course-icon-border, solid);
-        border-color: var(--haxtheme-course-card-course-icon-border-color);
-        border-width: var(--haxtheme-course-card-course-icon-border-width, 5px);
-        margin: var(--haxtheme-course-card-course-icon-margin, 0 0 -40px 0);
+        position: var(--course-card-course-icon-position, relative);
+        margin: var(--course-card-course-icon-margin, 0 auto);
+        border: var(--course-card-course-icon-border, solid);
+        border-color: var(--course-card-course-icon-border-color);
+        border-width: var(--course-card-course-icon-border-width, 5px);
+        
         height: var(--course-card--course-icon--height, 100px);
         width: var(--course-card--course-icon--width, 100px);
         display: flex;
@@ -69,25 +84,33 @@ export class CourseCard extends LitElement {
         overflow: hidden;
       }
       iron-icon {
-        width: var(--haxtheme-course-card-iron-icon-width, 70px);
-        height: var(--haxtheme-course-card-iron-icon-height, 70px);
-        fill: var(--haxtheme-course-card-iron-icon-color);
+        width: var(--course-card-iron-icon-width, 70px);
+        height: var(--course-card-iron-icon-height, 70px);
+        fill: var(--course-card-iron-icon-color);
       }
-      #course_image {
+      [part = "course_image"] {
+        width: var(--course-card--course-image--width, 100%);
+        height: var(--course-card--course-image--width, 150px);  
+      }
+      [part = "course_image"] + .card_body > [part = "course_icon"] {
+        bottom: var(--course-card-course-icon-position-bottom, 67px);
+        margin: var(--course-card-course-icon-margin, 0 auto -65px auto);
+      }
+      [part = "course_icon"] {
         background-repeat: var(
-          --haxtheme-course-card-course-image-background-repeat,
+          --course-card-course-image-background-repeat,
           no-repeat
         );
         background-size: var(
-          --haxtheme-course-card-course-image-background-size,
+          --course-card-course-image-background-size,
           cover
         );
         background-position: var(
-          --haxtheme-course-card-course-image-background-position,
+          --course-card-course-image-background-position,
           right center
         );
-        width: var(--haxtheme-course-card-course-image-width, 100%);
-        height: var(--haxtheme-course-card-course-image-height, 150px);
+        width: var(--course-card--course-icon--width, 80px);
+        height: var(--course-card--course-icon--width, 80px);
       }
     `;
   }
@@ -107,21 +130,23 @@ export class CourseCard extends LitElement {
         type: String,
       },
       /**
-       * Course Number
-       */
-      number: {
-        type: String,
-      },
-      /**
        * Course Icon
        */
       icon: {
         type: String,
       },
       /**
-       * Course Name
+       * Course Number
+       * E.g. COURSE 100
        */
-      name: {
+      number: {
+        type: String,
+      },
+      /**
+       * Course Title
+       * E.g. Introduction to Course
+       */
+      title: {
         type: String,
       },
       /**
@@ -135,7 +160,7 @@ export class CourseCard extends LitElement {
 
   constructor() {
     super();
-    this.title = "Hey there";
+    this.title = "Lorem Ipsum";
     this.counter = 5;
     this.__icon = "";
   }
@@ -144,39 +169,47 @@ export class CourseCard extends LitElement {
     this.counter += 1;
   }
 
-  __checkIconIsAvailable() {
-    if (this.icon !== "") {
+  __checkFieldIsAvailable(field) {
+    if (typeof(this[field]) != "undefined" && this[field] !== "") {
+      console.log(this[field]);
       return true
-    }
-    else if (this.querySelector("[slot='icon']")) {
+    } else if (this.querySelector("[slot='${field}']")) {
       return true
     }
     return false;
   }
 
   render() {
-    const icon = this.__checkIconIsAvailable();
+    const icon = this.__checkFieldIsAvailable("icon");
+    const image = this.__checkFieldIsAvailable("image");
+
     return html`
-      <a href="${this.url}">
-        <div id="card_wrap">
+        <div class="card_wrap">
+        <a href="${this.url}" target="_blank">
+          ${(image) ? html`
           <div
-            id="course_image"
+            part="course_image"
             style="background-image:url(${this.image})"
             alt="${this.alt}"
           ></div>
-          ${(icon) ? html`
-            <div part="course_icon">
-              <slot name="icon"><iron-icon icon="${this.icon}"></iron-icon></slot>
-            </div>
           ` : html``}
-          <div part="course_number">
-            <slot name="title">${this.number}</slot>
+          <div class="card_body">
+            ${(icon) ? html`
+              <div part="course_icon">
+                <slot name="icon">
+                  <iron-icon icon="${this.icon}"></iron-icon>
+                </slot>
+              </div>
+            ` : html``}
+            <div part="course_number">
+              <slot name="title">${this.number}</slot>
+            </div>
+            <div part="course_title">
+              <slot name="subtitle">${this.title}</slot>
+            </div>
           </div>
-          <div part="course_name">
-            <slot name="subtitle">${this.name}</slot>
-          </div>
+          </a>
         </div>
-      </a>
     `;
   }
 }
