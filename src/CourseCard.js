@@ -41,7 +41,11 @@ export class CourseCard extends LitElement {
         flex: 1 1 auto;
         padding: 1.25rem;
       }
-      [part="course_number"], 
+      .course-card--icon {
+        width: 100%;
+        height: 100%;
+      }
+      [part="course_number"],
       [part="course_number"] slot::slotted(*){
         font-size: var(--course-card--course-number--font-size, 1.75rem);
         text-transform: var(
@@ -75,7 +79,7 @@ export class CourseCard extends LitElement {
         border: var(--course-card-course-icon-border, solid);
         border-color: var(--course-card-course-icon-border-color);
         border-width: var(--course-card-course-icon-border-width, 5px);
-        
+
         height: var(--course-card--course-icon--height, 100px);
         width: var(--course-card--course-icon--width, 100px);
         display: flex;
@@ -90,7 +94,7 @@ export class CourseCard extends LitElement {
       }
       [part = "course_image"] {
         width: var(--course-card--course-image--width, 100%);
-        height: var(--course-card--course-image--width, 150px);  
+        height: var(--course-card--course-image--width, 150px);
       }
       [part = "course_image"] + .card_body > [part = "course_icon"] {
         bottom: var(--course-card-course-icon-position-bottom, 67px);
@@ -131,6 +135,10 @@ export class CourseCard extends LitElement {
       },
       /**
        * Course Icon
+       * Accepts iron-icons or url to image.
+       * E.g. pets
+       * E.g. https://unsplash.it/300
+       * @see {@link https://www.webcomponents.org/element/@polymer/iron-icons/demo/demo/index.html}
        */
       icon: {
         type: String,
@@ -170,13 +178,24 @@ export class CourseCard extends LitElement {
   }
 
   __checkFieldIsAvailable(field) {
-    if (typeof(this[field]) != "undefined" && this[field] !== "") {
-      console.log(this[field]);
+    let slot = this[field];
+    console.log(slot);
+    if (typeof(slot) != "undefined" && slot !== "") {
       return true
-    } else if (this.querySelector("[slot='${field}']")) {
+    } else if (this.querySelector("[slot='${slot}']")) {
       return true
     }
     return false;
+  }
+
+  __checkFieldForURL(field) {
+    console.log(field);
+    try {
+      new URL(field);
+    } catch (_) {
+      return false;
+    }
+    return true;
   }
 
   render() {
@@ -197,7 +216,10 @@ export class CourseCard extends LitElement {
             ${(icon) ? html`
               <div part="course_icon">
                 <slot name="icon">
-                  <iron-icon icon="${this.icon}"></iron-icon>
+                  ${this.__checkFieldForURL(this.icon) ?
+                    html`<div class="course-card--icon" style="background-image:url(${this.icon})"></div>` :
+                    html`<iron-icon icon="${this.icon}"></iron-icon>`
+                  }
                 </slot>
               </div>
             ` : html``}
