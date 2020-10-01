@@ -178,11 +178,12 @@ export class CourseCard extends LitElement {
   }
 
   __checkFieldIsAvailable(field) {
-    let slot = this[field];
-    console.log(slot);
-    if (typeof(slot) != "undefined" && slot !== "") {
+    // check if we have a property by that name that has a value
+    if (typeof this[field] !== "undefined" && this[field] !== "") {
       return true
-    } else if (this.querySelector("[slot='${slot}']")) {
+    }
+    // then check if we have a slot with that name in the lightdom
+    else if (this.querySelector(`[slot='${field}']`)) {
       return true
     }
     return false;
